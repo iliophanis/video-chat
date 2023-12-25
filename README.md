@@ -9,7 +9,6 @@ A video chat app created with Socket.io, Typescript, React, Redux, Node.js, Expr
 
 Because this is a demonstration application, some limitations have been applied:
 
-- The allowed usernames are 'user1', and 'user2'.
 - The duration of chat rooms is set at 5 minutes.
 
 To test application, open app in two separate browsers tabs and sign in with the allowed usernames in each browser.
