@@ -3,7 +3,7 @@ import { io as clientIo, Socket as ClientSocket } from 'socket.io-client';
 import { createServer } from 'http';
 import { Db } from 'mongodb';
 import { client } from '../../src/database';
-import { createUser } from '../../src/controllers/users';
+import { createUser } from '../../src/services/users';
 import user from '../../src/pubsub/users';
 import privateChat from '../../src/pubsub/privateChat';
 
@@ -13,18 +13,18 @@ import privateChat from '../../src/pubsub/privateChat';
 describe('Pubsub - privateChat', () => {
   let io: Server, serverSocket: Socket;
   let clientSocket1: ClientSocket, clientSocket2: ClientSocket;
-  let  client1Id: string, client2Id: string;
+  let client1Id: string, client2Id: string;
 
   let db: Db;
 
   const port = 9000;
 
   beforeAll((done) => {
-    /* Connect to MongoDB test database*/
+  /* Connect to MongoDB test database*/
     client.connect(() => {
       const globalDBName = global as typeof globalThis & {
-        __MONGO_DB_NAME__: string;
-      };
+    __MONGO_DB_NAME__: string;
+   };
       db = client.db(globalDBName.__MONGO_DB_NAME__);
 
       // Connect to sockets after MongoDB connection is established
@@ -36,7 +36,7 @@ describe('Pubsub - privateChat', () => {
         serveClient: false,
         cors: {
           origin: '*',
-          methods: ['GET', 'POST']
+          methods: ['GET', 'POST'],
         },
       };
       /* Create server listener */
@@ -77,7 +77,7 @@ describe('Pubsub - privateChat', () => {
   });
 
   beforeEach(async () => {
-    /* Clear database before each test */
+  /* Clear database before each test */
     await db.collection('room').deleteMany({});
     await db.collection('users').deleteMany({});
 
@@ -100,7 +100,7 @@ describe('Pubsub - privateChat', () => {
     /* Close MongoDB database connection */
     await client.close();
 
-    /*
+  /*
       Error when closing connection to database and sockets.
       After connection to MongoDB is closed, asynchronous methods
       using the database are called, resulting in a MongoDB
@@ -109,8 +109,8 @@ describe('Pubsub - privateChat', () => {
   });
 
   it.only('when server receives \'invite private chat\' event, the server emits the \'invite requested\' event to the invitee client', (done) => {
-    // Test is currently failing.
-    // Error: thrown: "Exceeded timeout of 5000 ms for a test.
+  // Test is currently failing.
+  // Error: thrown: "Exceeded timeout of 5000 ms for a test.
     clientSocket1.emit('invite private chat', client2Id);
 
     clientSocket2.on('invite requested', (arg) => {

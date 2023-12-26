@@ -1,6 +1,12 @@
 import { Db } from 'mongodb';
 import { client } from '../../src/database';
-import { createRoom, addUserBySocketId, getRoomUsersSocketId, deleteRoomById, getRoom } from '../../src/controllers/room';
+import {
+  createRoom,
+  addUserBySocketId,
+  getRoomUsersSocketId,
+  deleteRoomById,
+  getRoom,
+} from '../../src/services/room';
 
 /**
  * Test room controller methods
@@ -51,9 +57,7 @@ describe('Controllers - room', () => {
     const insertedRoom = await room.find().toArray();
 
     expect(insertedRoom).toHaveLength(1);
-    expect(insertedRoom[0]).toEqual(
-      expect.objectContaining(expectedRoom)
-    );
+    expect(insertedRoom[0]).toEqual(expect.objectContaining(expectedRoom));
   });
 
   it('addUserBySocketId function should add reference of user from users collection to a room collection\'s users array field', async () => {
@@ -86,17 +90,20 @@ describe('Controllers - room', () => {
     const user2 = await users.findOne({ socketId: socketId2 });
 
     const roomFilter = {
-      _id: result.insertedId
+      _id: result.insertedId,
     };
     const update = {
-      $set: { 'users' : [user1?._id, user2?._id] }
+      $set: { users: [user1?._id, user2?._id] },
     };
 
     await room.findOneAndUpdate(roomFilter, update);
 
     const returnedRoom = await getRoom(roomId.toString());
 
-    expect(returnedRoom).toEqual({ _id: roomId, users: [user1?._id, user2?._id] });
+    expect(returnedRoom).toEqual({
+      _id: roomId,
+      users: [user1?._id, user2?._id],
+    });
   });
 
   it('getRoomUsersSocketId function should return the users socket IDs in the room', async () => {
@@ -112,10 +119,10 @@ describe('Controllers - room', () => {
     const user2 = await users.findOne({ socketId: socketId2 });
 
     const roomFilter = {
-      _id: result.insertedId
+      _id: result.insertedId,
     };
     const update = {
-      $set: { 'users' : [user1?._id, user2?._id] }
+      $set: { users: [user1?._id, user2?._id] },
     };
 
     await room.findOneAndUpdate(roomFilter, update);
@@ -139,10 +146,10 @@ describe('Controllers - room', () => {
     const user2 = await users.findOne({ socketId: socketId2 });
 
     const roomFilter = {
-      _id: result.insertedId
+      _id: result.insertedId,
     };
     const update = {
-      $set: { 'users' : [user1?._id, user2?._id] }
+      $set: { users: [user1?._id, user2?._id] },
     };
 
     await room.findOneAndUpdate(roomFilter, update);

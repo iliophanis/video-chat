@@ -1,5 +1,9 @@
 import { Server, Socket } from 'socket.io';
-import { getAllUsers, createUser, deleteUserBySocketId } from '../controllers/users';
+import {
+  getAllUsers,
+  createUser,
+  deleteUserBySocketId,
+} from '../services/users';
 
 /**
  * Socket event listener functions for sending and receiving

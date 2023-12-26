@@ -16,7 +16,7 @@ describe('Pubsub - users', () => {
   const port = 9000;
 
   beforeAll((done) => {
-    /* Connect to MongoDB test database */
+  /* Connect to MongoDB test database */
     client.connect();
     db = client.db();
 
@@ -27,7 +27,7 @@ describe('Pubsub - users', () => {
       serveClient: false,
       cors: {
         origin: '*',
-        methods: ['GET', 'POST']
+        methods: ['GET', 'POST'],
       },
     };
 
@@ -48,8 +48,10 @@ describe('Pubsub - users', () => {
   });
 
   beforeEach((done) => {
-    /* Clear database before each test */
-    db.collection('users').deleteMany({})
+  /* Clear database before each test */
+    db
+      .collection('users')
+      .deleteMany({})
       .then(() => {
         /* Create client socket before each test */
         clientSocket = clientIo(`http://localhost:${port}`);
@@ -58,19 +60,18 @@ describe('Pubsub - users', () => {
           done();
         });
       });
-
   });
 
   afterEach((done) => {
-    /* Disconnect client socket after each test */
-    if (clientSocket.connected ) {
+  /* Disconnect client socket after each test */
+    if (clientSocket.connected) {
       clientSocket.disconnect();
     }
     done();
   });
 
   afterAll(async () => {
-    /* Close connection to MongoDB test database */
+  /* Close connection to MongoDB test database */
     await client.close();
 
     /* Close connections to server and client sockets */
@@ -84,7 +85,7 @@ describe('Pubsub - users', () => {
 
     clientSocket.emit('user entered', newUsername);
 
-    serverSocket.on('user entered', async (arg) => {
+    serverSocket.on('user entered', async () => {
       const insertedUser = await users.findOne({ username: newUsername });
       expect(insertedUser).not.toBeNull();
       expect(insertedUser?.username).toEqual(newUsername);
@@ -102,12 +103,11 @@ describe('Pubsub - users', () => {
       expect(arg).not.toBeNull();
       expect(arg).toHaveLength(1);
 
-      users.findOne({ username: newUsername })
-        .then(user => {
-          expect(arg[0].socketId).toEqual(user?.socketId);
-          expect(arg[0].username).toEqual(user?.username);
-          done();
-        });
+      users.findOne({ username: newUsername }).then((user) => {
+        expect(arg[0].socketId).toEqual(user?.socketId);
+        expect(arg[0].username).toEqual(user?.username);
+        done();
+      });
     });
   });
 
@@ -120,22 +120,21 @@ describe('Pubsub - users', () => {
     clientSocket.on('get socket id', (arg) => {
       expect(arg).not.toBeNull();
 
-      users.findOne({ username: newUsername })
-        .then(user => {
-          expect(user?.socketId).toEqual(arg);
-          done();
-        });
+      users.findOne({ username: newUsername }).then((user) => {
+        expect(user?.socketId).toEqual(arg);
+        done();
+      });
     });
   });
 
   it('after client disconnects, the client data is removed from the database', (done) => {
-    /* After client sends `user entered` event, check that user data is in database */
+  /* After client sends `user entered` event, check that user data is in database */
     const newUsername = 'Nora';
     const users = db.collection('users');
 
     clientSocket.emit('user entered', newUsername);
 
-    serverSocket.on('user entered', async (arg) => {
+    serverSocket.on('user entered', async () => {
       const insertedUser = await users.findOne({ username: newUsername });
       expect(insertedUser).not.toBeNull();
       expect(insertedUser?.username).toEqual(newUsername);
@@ -156,7 +155,7 @@ describe('Pubsub - users', () => {
   });
 
   it('after client disconnects and client data is removed from database, server sends `get user list` event and updated users list to all clients', (done) => {
-    /* Connect a second client */
+  /* Connect a second client */
     const clientSocket2 = clientIo(`http://localhost:${port}`);
 
     const newUsername = 'Nora';

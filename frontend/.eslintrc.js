@@ -18,6 +18,7 @@ module.exports = {
   sourceType: 'module',
  },
  plugins: ['react', '@typescript-eslint'],
+ ignorePatterns: ['public/*', 'cypress/*'],
  rules: {
   '@typescript-eslint/no-non-null-assertion': 'off',
   '@typescript-eslint/ban-ts-ignore': 'off',

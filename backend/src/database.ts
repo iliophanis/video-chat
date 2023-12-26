@@ -8,16 +8,15 @@ if (process.env.NODE_ENV === 'production') {
   console.log('not production', process.env.NODE_ENV);
   uri = process.env.MONGODB_URI;
 }
-// const uri = process.env.MONGODB_URI;
 
 /*
  * Create the mongodb client
-*/
+ */
 export let client: MongoClient;
 if (process.env.NODE_ENV === 'test') {
   const globalURI = global as typeof globalThis & {
-    __MONGO_URI__: string;
-  };
+  __MONGO_URI__: string;
+ };
 
   const options: MongoOptions = {
     useNewUrlParser: true,
@@ -25,7 +24,7 @@ if (process.env.NODE_ENV === 'test') {
     keepAlive: true,
   };
 
-  client= new MongoClient(globalURI.__MONGO_URI__, options);
+  client = new MongoClient(globalURI.__MONGO_URI__, options);
 } else {
   client = new MongoClient(uri);
 }
@@ -42,7 +41,7 @@ const main = async () => {
     await client.db('chat').collection('room').deleteMany({});
 
     console.log('Connected to MongoDB');
-  } catch(e) {
+  } catch (e) {
     console.log(e);
   }
 };

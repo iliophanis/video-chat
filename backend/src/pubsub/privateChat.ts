@@ -1,6 +1,12 @@
 import { Server, Socket } from 'socket.io';
-import { createRoom, addUserBySocketId, getRoomUsersSocketId, getRoom, deleteRoomById } from '../controllers/room';
-import { getUserById } from '../controllers/users';
+import {
+  createRoom,
+  addUserBySocketId,
+  getRoomUsersSocketId,
+  getRoom,
+  deleteRoomById,
+} from '../services/room';
+import { getUserById } from '../services/users';
 
 /**
  * Socket event listener functions for sending and receiving
@@ -44,7 +50,7 @@ const privateChat = async (socket: Socket, io: Server) => {
   socket.on('send chat message', (sentMessageData) => {
     const messageData = {
       msg: sentMessageData.msg,
-      userId: socket.id
+      userId: socket.id,
     };
 
     io.to(sentMessageData.roomId).emit('receive chat message', messageData);

@@ -8,7 +8,9 @@
   "build:watch": "npx tsc --watch",
   "server": "nodemon dist/index.js",
   "dev": "concurrently \"npm run build:watch\" \"npm run server\"",
-  "test": "jest"
+  "test": "jest",
+  "lint": "eslint .",
+  "lint:fix": "eslint . --fix"
  },
  "keywords": [],
  "author": "",

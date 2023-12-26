@@ -1,21 +1,28 @@
 import app from './app';
 import http from 'http';
-import { Server } from 'socket.io';
+// import { Server } from 'socket.io';
 import createSocket from './socket';
+import { Request, Response } from 'express';
 
 let port = process.env.PORT;
 if (port === null) {
-  port = '3001';
+  port = '5001';
 }
 
 /*
  * Create HTTP server
-*/
+ */
 const server = http.createServer(app);
+
+app.get('/', function (req: Request, res: Response) {
+  res.json('server Listening!');
+});
 
 /*
  * Create and connect socket.io server
-*/
-const io: Server = createSocket(server);
-console.log('Server listening on port ', port);
-io.listen(Number(port));
+ */
+createSocket(server);
+
+server.listen(Number(port), () => {
+  console.log('Server listening on port ', port);
+});

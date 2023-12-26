@@ -1,5 +1,5 @@
 [![Netlify Status](https://api.netlify.com/api/v1/badges/7caaf4f8-2ecb-46ec-a28b-6fd24810fb68/deploy-status)](https://app.netlify.com/sites/fc-chat-app-demo/deploys)
-# 💬 Video Chat App
+# 💬 AUEB Video Chat
 
 A video chat app created with Socket.io, Typescript, React, Redux, Node.js, Express, and MongoDB.  
 

@@ -1,6 +1,12 @@
 import { Db, ObjectId } from 'mongodb';
 import { client } from '../../src/database';
-import { createUser, deleteUserBySocketId, getAllUsers, getUserById, setUserStatus } from '../../src/controllers/users';
+import {
+  createUser,
+  deleteUserBySocketId,
+  getAllUsers,
+  getUserById,
+  setUserStatus,
+} from '../../src/services/users';
 
 /**
  * Test user controller methods
@@ -112,22 +118,21 @@ describe('Controllers - users', () => {
     const userObjects = [
       {
         socketId: 'g1_UnFDfzUoU3yUeAAAB',
-        username: 'Jane01'
+        username: 'Jane01',
       },
       {
         socketId: 'h1_UnFDfzUoU3yUeAAAB',
-        username: 'Jane02'
+        username: 'Jane02',
       },
       {
         socketId: 'i1_UnFDfzUoU3yUeAAAB',
-        username: 'Jane03'
+        username: 'Jane03',
       },
     ];
 
     userObjects.forEach(async (user) => {
       await users.insertOne(user);
     });
-
 
     const result = await getAllUsers();
     expect(result).toEqual(userObjects);

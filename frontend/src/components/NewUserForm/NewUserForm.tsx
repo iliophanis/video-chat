@@ -21,8 +21,11 @@ const NewUserForm: React.FC = () => {
  };
 
  return (
-  <form id="usernameForm" className="box" onSubmit={handleUsernameSubmit}>
-   <p className="is-size-7 is-family-monospace">Select your username</p>
+  <form
+   id="usernameForm"
+   className="box is-flex is-flex-direction-column is-justify-content-center is-align-items-center"
+   onSubmit={handleUsernameSubmit}
+  >
    <label id="username" htmlFor="usernameInput" className="label">
     Username
    </label>
@@ -36,7 +39,7 @@ const NewUserForm: React.FC = () => {
     />
    </div>
    <div className="control block">
-    <button id="submitUsername" type="submit" className="button is-primary">
+    <button id="submitUsername" type="submit" className="button is-success">
      Submit
     </button>
    </div>

@@ -1,40 +1,23 @@
 module.exports = {
-  'env': {
-    'es2021': true,
-    'node': true
+  env: {
+    es2021: true,
+    node: true,
   },
-  'extends': [
-    'eslint:recommended',
-    'plugin:@typescript-eslint/recommended'
-  ],
-  'parser': '@typescript-eslint/parser',
-  'parserOptions': {
-    'ecmaVersion': 'latest',
-    'sourceType': 'module'
+  extends: ['eslint:recommended', 'plugin:@typescript-eslint/recommended'],
+  parser: '@typescript-eslint/parser',
+  parserOptions: {
+    ecmaVersion: 'latest',
+    sourceType: 'module',
   },
-  'plugins': [
-    '@typescript-eslint'
-  ],
-  'rules': {
+  plugins: ['@typescript-eslint'],
+  ignorePatterns: ['dist/**/*.js', 'jest.config.js'],
+  rules: {
     '@typescript-eslint/no-non-null-assertion': 'off',
-    'indent': [
-      'error',
-      2
-    ],
-    'quotes': [
-      'error',
-      'single'
-    ],
-    'semi': [
-      'error',
-      'always'
-    ],
+    indent: ['error', 2],
+    quotes: ['error', 'single'],
+    semi: ['error', 'always'],
     'no-trailing-spaces': 'error',
-    'object-curly-spacing': [
-      'error', 'always'
-    ],
-    'arrow-spacing': [
-      'error', { 'before': true, 'after': true }
-    ],
-  }
+    'object-curly-spacing': ['error', 'always'],
+    'arrow-spacing': ['error', { before: true, after: true }],
+  },
 };

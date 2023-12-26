@@ -9,13 +9,12 @@ app.use(cors());
 
 /*
  * Access variables in the .env file via process.env
-*/
+ */
 dotenv.config();
-
 
 /*
  * Connect to MongoDB database
-*/
+ */
 connectDatabase().catch(console.error);
 
 export default app;
