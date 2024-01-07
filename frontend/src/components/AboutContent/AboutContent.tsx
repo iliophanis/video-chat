@@ -8,7 +8,7 @@ const AboutContent: React.FC = () => {
     <p>Hello! Welcome to AUEB Video Chat by Ilias Theofanis Gravvanis.</p>
     <p>
      To test application, open app in two separate browsers tabs and sign in
-     with the allowed usernames in each browser.
+     with your username in each browser.
     </p>
     <p>
      Video streaming between two peers works best between the same browsers. The

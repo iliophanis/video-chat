@@ -5,18 +5,25 @@ import Navbar from './Navbar';
 import Modal from './Modal';
 import Notification from './Notification';
 
-const Layout: React.FC = ({ children }) => {
-  const notificationActive = useAppSelector(state => state.notification.isActive);
+type LayoutProps = {
+ children: React.ReactElement | any;
+};
+const Layout: React.FC<LayoutProps> = ({ children }) => {
+ const notificationActive = useAppSelector(
+  (state) => state.notification.isActive
+ );
 
-  return (
-    <>
-      <Navbar />
-      <Header />
-      {notificationActive && <Notification/>}
-      <div className="section is-flex-grow-1 is-flex is-flex-direction-column">{children}</div>
-      <Modal />
-    </>
-  );
+ return (
+  <>
+   <Navbar />
+   <Header />
+   {notificationActive && <Notification />}
+   <div className="section is-flex-grow-1 is-flex is-flex-direction-column">
+    {children}
+   </div>
+   <Modal />
+  </>
+ );
 };
 
 export default Layout;

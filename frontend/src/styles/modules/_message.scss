@@ -1,15 +1,16 @@
 .Message {
   width: 75%;
   max-width: 300px;
-  background-color: $grey-darker;
   box-shadow: none;
 }
 
 .peer1Message {
   align-self: end;
-  color: $turquoise;
+  background-color: $blue-dark;
+  color: $white-ter;
 }
 
 .peer2Message {
-  color: $white-ter;
+  background-color: $grey-lightest;
+  color: $black-ter;
 }
