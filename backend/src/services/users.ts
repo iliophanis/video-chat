@@ -4,7 +4,7 @@
 import { Document, ObjectId } from 'mongodb';
 import { client } from '../database';
 
-const dbName = process.env.NODE_ENV === 'test' ? 'test' : 'chat';
+const dbName = 'chat';
 
 /**
  * Create new user document
@@ -28,12 +28,12 @@ export async function createUser(newUser: Document) {
 export async function setUserStatus(id: ObjectId, status: boolean) {
   try {
     const update = {
-      $set: { 'isBusy' : status }
+      $set: { isBusy: status },
     };
-    await client.db(dbName).collection('users').findOneAndUpdate(
-      { _id: id },
-      update
-    );
+    await client
+      .db(dbName)
+      .collection('users')
+      .findOneAndUpdate({ _id: id }, update);
   } catch (error) {
     console.error(error);
   }
@@ -46,7 +46,10 @@ export async function setUserStatus(id: ObjectId, status: boolean) {
  */
 export async function deleteUserBySocketId(socketId: string) {
   try {
-    const result = await client.db(dbName).collection('users').findOneAndDelete({ socketId });
+    const result = await client
+      .db(dbName)
+      .collection('users')
+      .findOneAndDelete({ socketId });
     return result.value;
   } catch (error) {
     console.error(error);
@@ -60,7 +63,10 @@ export async function deleteUserBySocketId(socketId: string) {
  */
 export async function getUserById(id: ObjectId) {
   try {
-    const result = await client.db(dbName).collection('users').findOne({ _id: id });
+    const result = await client
+      .db(dbName)
+      .collection('users')
+      .findOne({ _id: id });
     return result;
   } catch (error) {
     console.error(error);

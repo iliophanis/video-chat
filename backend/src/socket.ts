@@ -8,29 +8,29 @@ import privateChat from './pubsub/privateChat';
  * Create socket.io server
  */
 const options = {
- path: '/',
- cors: {
-  origin: '*',
-  methods: ['GET', 'POST'],
- },
+  path: '/',
+  cors: {
+    origin: '*',
+    methods: ['GET', 'POST'],
+  },
 };
 
 const main = (server: http.Server) => {
- const io: Server = new Server(server, options);
+  const io: Server = new Server(server, options);
 
- io.on('connection', (socket) => {
-  console.log('a user connected');
+  io.on('connection', (socket) => {
+    console.log('a user connected');
 
-  user(socket, io);
-  privateChat(socket, io);
-  video.streamPeers(socket, io); // test
+    user(socket, io);
+    privateChat(socket, io);
+    video.streamPeers(socket, io); // test
 
-  socket.on('disconnect', () => {
-   console.log('user disconnected');
+    socket.on('disconnect', () => {
+      console.log('user disconnected');
+    });
   });
- });
 
- //  return io;
+  //  return io;
 };
 
 export default main;
